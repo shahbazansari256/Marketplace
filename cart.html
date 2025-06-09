@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Advanced Cart Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f6fa; margin: 0; }
+    .cart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+      padding: 32px 24px;
+    }
+    h2 { text-align: center; margin-bottom: 28px; color: #2d3436; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { padding: 14px 10px; text-align: left; }
+    th { background: #f1f2f6; color: #636e72; }
+    td img { width: 48px; height: 48px; border-radius: 8px; }
+    .qty-controls {
+      display: flex; align-items: center; gap: 8px;
+    }
+    .qty-btn {
+      width: 28px; height: 28px; border: none; background: #dfe6e9; color: #2d3436;
+      border-radius: 50%; font-size: 18px; cursor: pointer; transition: background 0.2s;
+    }
+    .qty-btn:hover { background: #b2bec3; }
+    .remove-btn {
+      background: none; border: none; color: #d63031; font-size: 18px; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .remove-btn:hover { color: #e17055; }
+    .cart-summary {
+      margin-top: 32px; display: flex; justify-content: flex-end; align-items: center;
+    }
+    .total-label { font-weight: bold; font-size: 1.1em; margin-right: 16px; }
+    .total-value { font-size: 1.3em; color: #0984e3; }
+    .checkout-btn {
+      margin-left: 32px; padding: 12px 32px; background: #0984e3; color: #fff;
+      border: none; border-radius: 6px; font-size: 1.1em; cursor: pointer;
+      transition: background 0.2s;
+    }
+    .checkout-btn:hover { background: #74b9ff; }
+    @media (max-width: 600px) {
+      .cart-container { padding: 12px 4px; }
+      th, td { padding: 8px 4px; }
+      .cart-summary { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .checkout-btn { width: 100%; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+  <div class="cart-container">
+    <h2>Your Shopping Cart 🛒</h2>
+    <table id="cart-table">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th>Item</th>
+          <th>Price</th>
+          <th>Quantity</th>
+          <th>Subtotal</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="cart-body">
+        <!-- Cart items will be rendered here -->
+      </tbody>
+    </table>
+    <div class="cart-summary">
+      <span class="total-label">Total:</span>
+      <span class="total-value" id="cart-total">₹0.00</span>
+      <button class="checkout-btn" onclick="checkout()">Checkout</button>
+    </div>
+  </div>
+
+  <script>
+    // Sample cart data (simulate fetched or localStorage data)
+    let cart = [
+      {
+        id: 1,
+        name: "Wireless Headphones",
+        price: 2599,
+        image: "https://i.imgur.com/1bX5QH6.png",
+        quantity: 1
+      },
+      {
+        id: 2,
+        name: "Smart Watch",
+        price: 3999,
+        image: "https://i.imgur.com/0y8Ftya.png",
+        quantity: 2
+      },
+      {
+        id: 3,
+        name: "Bluetooth Speaker",
+        price: 1499,
+        image: "https://i.imgur.com/4rRZ4dB.png",
+        quantity: 1
+      }
+    ];
+
+    function renderCart() {
+      const cartBody = document.getElementById('cart-body');
+      cartBody.innerHTML = '';
+      let total = 0;
+      if (cart.length === 0) {
+        cartBody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:#636e72;">Your cart is empty.</td></tr>`;
+      } else {
+        cart.forEach(item => {
+          const subtotal = item.price * item.quantity;
+          total += subtotal;
+          cartBody.innerHTML += `
+            <tr>
+              <td><img src="${item.image}" alt="${item.name}"></td>
+              <td>${item.name}</td>
+              <td>₹${item.price.toLocaleString()}</td>
+              <td>
+                <div class="qty-controls">
+                  <button class="qty-btn" onclick="updateQty(${item.id}, -1)">−</button>
+                  <span>${item.quantity}</span>
+                  <button class="qty-btn" onclick="updateQty(${item.id}, 1)">+</button>
+                </div>
+              </td>
+              <td>₹${subtotal.toLocaleString()}</td>
+              <td>
+                <button class="remove-btn" title="Remove" onclick="removeItem(${item.id})">&times;</button>
+              </td>
+            </tr>
+          `;
+        });
+      }
+      document.getElementById('cart-total').innerText = `₹${total.toLocaleString()}.00`;
+    }
+
+    function updateQty(id, delta) {
+      cart = cart.map(item => {
+        if (item.id === id) {
+          let newQty = item.quantity + delta;
+          if (newQty < 1) newQty = 1;
+          return { ...item, quantity: newQty };
+        }
+        return item;
+      });
+      renderCart();
+    }
+
+    function removeItem(id) {
+      cart = cart.filter(item => item.id !== id);
+      renderCart();
+    }
+
+    function checkout() {
+      if (cart.length === 0) {
+        alert("Your cart is empty!");
+        return;
+      }
+      alert("Thank you for your purchase! (Demo only)");
+      cart = [];
+      renderCart();
+    }
+
+    // Initial render
+    renderCart();
+  </script>
+</body>
+</html>

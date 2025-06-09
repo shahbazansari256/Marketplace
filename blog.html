@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Press - Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark-mode {
+      background: #181818 !important;
+      color: #f1f1f1 !important;
+    }
+    .dark-mode .card {
+      background: #23272b;
+      color: #fff;
+    }
+    .sticky-footer {
+      background: #23272b;
+      color: #fff;
+      padding: 40px 0 20px 0;
+    }
+    .sticky-footer a {
+      color: #bbb;
+      text-decoration: none;
+    }
+    .sticky-footer a:hover {
+      color: #fff;
+    }
+    a:focus,
+    button:focus,
+    input:focus {
+      outline: 2px solid #0d6efd !important;
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-shop-window"></i> MarketPlace</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="all-products.html" class="nav-link">Products</a></li>
+          <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+          <li class="nav-item"><a href="signup.html" class="nav-link">Sign Up</a></li>
+          <li class="nav-item"><a href="press.html" class="nav-link active" aria-current="page">Press</a></li>
+          <li class="nav-item">
+            <button class="btn btn-outline-dark ms-2" id="toggleMode" aria-label="Toggle light/dark mode">
+              <i class="bi bi-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container py-5">
+    <h1 class="fw-bold mb-4">Press & Media</h1>
+    <p>MarketPlace has been featured in various media outlets. Here are some of our recent press releases and news articles.</p>
+
+    <div class="list-group mt-4">
+      <a href="#" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">MarketPlace Launches New Freelance Platform</h5>
+        <small>Published on June 1, 2025</small>
+        <p class="mb-1">Our new platform aims to connect freelancers and clients worldwide with ease and security.</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">How MarketPlace is Changing the Gig Economy</h5>
+        <small>Published on May 15, 2025</small>
+        <p class="mb-1">An in-depth look at how our marketplace supports freelancers and businesses alike.</p>
+      </a>
+      <a href="#" class="list-group-item list-group-item-action">
+        <h5 class="mb-1">MarketPlace Partners with Leading Payment Providers</h5>
+        <small>Published on April 20, 2025</small>
+        <p class="mb-1">Ensuring secure and fast transactions for all users on our platform.</p>
+      </a>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="sticky-footer mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Company</h6>
+          <ul class="list-unstyled">
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Categories</h6>
+          <ul class="list-unstyled">
+            <li><a href="programming.html">Programming</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="music-audio.html">Music & Audio</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Support</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Trust & Safety</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Community</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Invite a Friend</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Follow Us</h6>
+          <ul class="list-unstyled d-flex gap-2">
+            <li><a href="#"><i class="bi bi-facebook fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-twitter-x fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-instagram fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-linkedin fs-4"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-2 mb-4">
+          <h6 class="fw-bold">Get the App</h6>
+          <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" width="120" class="mb-2"></a>
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" width="120"></a>
+        </div>
+      </div>
+      <hr class="border-secondary" />
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p class="mb-0">&copy; 2025 MarketPlace. All rights reserved.</p>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+          <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+          <li class="list-inline-item"><a href="#">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Light/Dark Mode Toggle
+    document.getElementById('toggleMode').addEventListener('click', function () {
+      document.body.classList.toggle('dark-mode');
+      this.innerHTML = document.body.classList.contains('dark-mode')
+        ? '<i class="bi bi-sun"></i>'
+        : '<i class="bi bi-moon"></i>';
+    });
+  </script>
+</body>
+</html>

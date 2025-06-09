@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Programming - Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <style>
+    body { transition: background 0.3s, color: 0.3s; }
+    .dark-mode { background: #181818 !important; color: #f1f1f1 !important; }
+    .dark-mode .card { background: #23272b; color: #fff; }
+    .sticky-footer { background: #23272b; color: #fff; padding: 40px 0 20px 0; }
+    .sticky-footer a { color: #bbb; text-decoration: none; }
+    .sticky-footer a:hover { color: #fff; }
+    a:focus, button:focus, input:focus { outline: 2px solid #0d6efd !important; outline-offset: 2px; }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-shop-window"></i> MarketPlace</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="all-products.html" class="nav-link">Products</a></li>
+          <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li class="nav-item"><a href="profile.html" class="nav-link">Profile</a></li>
+          <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+          <li class="nav-item">
+            <button class="btn btn-outline-dark ms-2" id="toggleMode" aria-label="Toggle light/dark mode">
+              <i class="bi bi-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Category Header -->
+  <div class="container py-5">
+    <h2 class="fw-bold mb-4"><i class="bi bi-code-slash text-primary"></i> Programming Services</h2>
+    <div class="row g-4">
+      <!-- 1 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Web App">
+          <div class="card-body">
+            <h5 class="card-title">Full Stack Web App</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">CodeMaster</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.9</span> (120)</div>
+            <p class="fw-bold mb-0">$250</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="Full Stack Web App"
+              data-seller="CodeMaster"
+              data-price="250"
+              data-img="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 2 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="API Development">
+          <div class="card-body">
+            <h5 class="card-title">REST API Development</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">ApiPro</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 5.0</span> (80)</div>
+            <p class="fw-bold mb-0">$180</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="REST API Development"
+              data-seller="ApiPro"
+              data-price="180"
+              data-img="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 3 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Bug Fixing">
+          <div class="card-body">
+            <h5 class="card-title">Bug Fixing</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">DebugHero</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.8</span> (60)</div>
+            <p class="fw-bold mb-0">$50</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="Bug Fixing"
+              data-seller="DebugHero"
+              data-price="50"
+              data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 4 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Mobile App">
+          <div class="card-body">
+            <h5 class="card-title">Mobile App Development</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">AppGuru</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.7</span> (90)</div>
+            <p class="fw-bold mb-0">$300</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="Mobile App Development"
+              data-seller="AppGuru"
+              data-price="300"
+              data-img="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 5 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="WordPress">
+          <div class="card-body">
+            <h5 class="card-title">WordPress Customization</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">WPExpert</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.9</span> (110)</div>
+            <p class="fw-bold mb-0">$100</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="WordPress Customization"
+              data-seller="WPExpert"
+              data-price="100"
+              data-img="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 6 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="E-commerce">
+          <div class="card-body">
+            <h5 class="card-title">E-commerce Website</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">ShopBuilder</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 5.0</span> (75)</div>
+            <p class="fw-bold mb-0">$400</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="E-commerce Website"
+              data-seller="ShopBuilder"
+              data-price="400"
+              data-img="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 7 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Database Design">
+          <div class="card-body">
+            <h5 class="card-title">Database Design</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">DataSmith</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.8</span> (55)</div>
+            <p class="fw-bold mb-0">$90</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="Database Design"
+              data-seller="DataSmith"
+              data-price="90"
+              data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+      <!-- 8 -->
+      <div class="col-12 col-md-6 col-lg-3">
+        <div class="card h-100">
+          <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80" class="card-img-top" alt="Code Review">
+          <div class="card-body">
+            <h5 class="card-title">Code Review</h5>
+            <p class="card-text text-muted">by <span class="fw-bold">ReviewNinja</span></p>
+            <div class="mb-2"><span class="text-warning"><i class="bi bi-star-fill"></i> 4.7</span> (40)</div>
+            <p class="fw-bold mb-0">$60</p>
+          </div>
+          <div class="card-footer bg-transparent border-0">
+            <button class="btn btn-primary w-100 order-btn"
+              data-title="Code Review"
+              data-seller="ReviewNinja"
+              data-price="60"
+              data-img="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+            >Order Now</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer (same for all pages) -->
+  <footer class="sticky-footer mt-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Company</h6>
+          <ul class="list-unstyled">
+            <li><a href="about.html">About</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="press.html">Press</a></li>
+            <li><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Categories</h6>
+          <ul class="list-unstyled">
+            <li><a href="programming.html">Programming</a></li>
+            <li><a href="design.html">Design</a></li>
+            <li><a href="marketing.html">Marketing</a></li>
+            <li><a href="music-audio.html">Music & Audio</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Support</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Trust & Safety</a></li>
+            <li><a href="#">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Community</h6>
+          <ul class="list-unstyled">
+            <li><a href="#">Events</a></li>
+            <li><a href="#">Forum</a></li>
+            <li><a href="#">Affiliates</a></li>
+            <li><a href="#">Invite a Friend</a></li>
+          </ul>
+        </div>
+        <div class="col-6 col-md-2 mb-4">
+          <h6 class="fw-bold">Follow Us</h6>
+          <ul class="list-unstyled d-flex gap-2">
+            <li><a href="#"><i class="bi bi-facebook fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-twitter-x fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-instagram fs-4"></i></a></li>
+            <li><a href="#"><i class="bi bi-linkedin fs-4"></i></a></li>
+          </ul>
+        </div>
+        <div class="col-12 col-md-2 mb-4">
+          <h6 class="fw-bold">Get the App</h6>
+          <a href="#"><img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="App Store" width="120" class="mb-2"></a>
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Google Play" width="120"></a>
+        </div>
+      </div>
+      <hr class="border-secondary">
+      <div class="d-flex flex-column flex-md-row justify-content-between align-items-center">
+        <p class="mb-0">&copy; 2025 MarketPlace. All rights reserved.</p>
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+          <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+          <li class="list-inline-item"><a href="#">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Light/Dark Mode
+    document.getElementById('toggleMode').addEventListener('click', function() {
+      document.body.classList.toggle('dark-mode');
+      this.innerHTML = document.body.classList.contains('dark-mode')
+        ? '<i class="bi bi-sun"></i>'
+        : '<i class="bi bi-moon"></i>';
+    });
+
+    // Order Now functionality
+    document.querySelectorAll('.order-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const product = {
+          title: this.dataset.title,
+          seller: this.dataset.seller,
+          price: this.dataset.price,
+          img: this.dataset.img
+        };
+        localStorage.setItem('checkoutProduct', JSON.stringify(product));
+        window.location.href = 'checkout.html';
+      });
+    });
+  </script>
+</body>
+</html>

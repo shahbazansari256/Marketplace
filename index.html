@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Marketplace - Home</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #181818;
+      --success: #4cc9f0;
+      --warning: #f72585;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      transition: var(--transition);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      color: #333;
+    }
+
+    .dark-mode { 
+      background: var(--dark) !important; 
+      color: #f1f1f1 !important; 
+    }
+    .dark-mode .card { 
+      background: #23272b; 
+      color: #fff; 
+      border: 1px solid #343a40;
+    }
+    .dark-mode .sticky-footer { 
+      background: #1a1d21; 
+      color: #f1f1f1; 
+    }
+    .dark-mode .bg-light { 
+      background-color: #212529 !important; 
+    }
+    .dark-mode .text-muted { 
+      color: #adb5bd !important; 
+    }
+
+    .sticky-footer { 
+      background: #23272b; 
+      color: #fff; 
+      padding: 40px 0 20px 0; 
+    }
+    .sticky-footer a { 
+      color: #bbb; 
+      text-decoration: none; 
+    }
+    .sticky-footer a:hover { 
+      color: #fff; 
+    }
+    
+    a:focus, button:focus, input:focus { 
+      outline: 2px solid var(--accent) !important; 
+      outline-offset: 2px; 
+    }
+
+    /* Custom Styles */
+    .navbar {
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 12px 0;
+    }
+    
+    .hero-section {
+      background: linear-gradient(135deg, #4361ee 0%, #3a0ca3 100%);
+      color: white;
+      padding: 5rem 0;
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .hero-section::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: url('https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1950') center/cover no-repeat;
+      opacity: 0.1;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+    
+    .category-card {
+      transition: var(--transition);
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+    
+    .product-card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .seller-card {
+      transition: var(--transition);
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+    }
+    
+    .seller-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+    }
+    
+    .testimonial-card {
+      border-radius: 12px;
+      background: white;
+      border: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    }
+    
+    .feature-badge {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 3;
+      font-size: 0.8rem;
+    }
+    
+    .animated-btn {
+      position: relative;
+      overflow: hidden;
+      transition: var(--transition);
+    }
+    
+    .animated-btn:after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 5px;
+      height: 5px;
+      background: rgba(255, 255, 255, 0.5);
+      opacity: 0;
+      border-radius: 100%;
+      transform: scale(1, 1) translate(-50%);
+      transform-origin: 50% 50%;
+    }
+    
+    .animated-btn:focus:after {
+      animation: ripple 1s ease-out;
+    }
+    
+    @keyframes ripple {
+      0% {
+        transform: scale(0, 0);
+        opacity: 1;
+      }
+      20% {
+        transform: scale(25, 25);
+        opacity: 1;
+      }
+      100% {
+        opacity: 0;
+        transform: scale(40, 40);
+      }
+    }
+    
+    .section-title {
+      position: relative;
+      padding-bottom: 15px;
+      margin-bottom: 30px;
+    }
+    
+    .section-title:after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--primary);
+      border-radius: 3px;
+    }
+    
+    .center-title .section-title:after {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    
+    .progress-ring {
+      position: relative;
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 15px;
+    }
+    
+    .progress-ring__circle {
+      transform: rotate(-90deg);
+      transform-origin: 50% 50%;
+    }
+    
+    .progress-ring__circle--background {
+      stroke: var(--light-gray);
+    }
+    
+    .progress-ring__circle--progress {
+      stroke: var(--primary);
+      transition: stroke-dashoffset 0.5s ease;
+    }
+    
+    .progress-value {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .feature-highlight {
+      padding: 5px 15px;
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: var(--transition);
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .stat-card .icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: rgba(67, 97, 238, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 1.5rem;
+      color: var(--primary);
+    }
+    
+    .stat-card .number {
+      font-size: 2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: var(--primary);
+    }
+    
+    .stat-card .label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .rating-stars {
+      color: #ffc107;
+      margin-bottom: 5px;
+    }
+    
+    .feature-icon {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background: rgba(67, 97, 238, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      font-size: 1.8rem;
+      color: var(--primary);
+      transition: var(--transition);
+    }
+    
+    .feature-box:hover .feature-icon {
+      background: var(--primary);
+      color: white;
+      transform: scale(1.1);
+    }
+    
+    .floating-animation {
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+      100% { transform: translateY(0px); }
+    }
+    
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0.4); }
+      70% { box-shadow: 0 0 0 15px rgba(67, 97, 238, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(67, 97, 238, 0); }
+    }
+    
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--primary);
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .dark-mode .stat-card {
+      background: #23272b;
+    }
+    
+    .dark-mode .stat-card .label {
+      color: #adb5bd;
+    }
+    
+    .dark-mode .testimonial-card {
+      background: #23272b;
+    }
+    
+    .dark-mode .progress-ring__circle--background {
+      stroke: #343a40;
+    }
+  </style>
+</head>
+<body>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress"></div>
+  
+  <!-- Back to Top -->
+  <div class="back-to-top">
+    <i class="bi bi-arrow-up"></i>
+  </div>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+        <i class="bi bi-shop-window me-2 text-primary"></i> 
+        <span class="gradient-text">MarketPro</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link active">Home</a></li>
+          <li class="nav-item"><a href="all-products.html" class="nav-link">Products</a></li>
+          <li class="nav-item"><a href="categories.html" class="nav-link">Categories</a></li>
+          <li class="nav-item"><a href="sellers.html" class="nav-link">Top Sellers</a></li>
+          <li class="nav-item"><a href="enterprise.html" class="nav-link">Enterprise</a></li>
+        </ul>
+        
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-3">
+            <a href="cart.html" class="nav-link position-relative">
+              <i class="bi bi-cart3 fs-5"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown me-3">
+            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-bell fs-5"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-cart-check me-2"></i> New order received</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-chat-dots me-2"></i> New message from seller</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-star me-2"></i> New review on your service</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" class="rounded-circle me-2" width="32" height="32" alt="User">
+              <span>John Doe</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+              <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="orders.html"><i class="bi bi-bag me-2"></i> Orders</a></li>
+              <li><a class="dropdown-item" href="messages.html"><i class="bi bi-chat me-2"></i> Messages</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ms-2">
+            <button class="btn btn-outline-dark rounded-circle" id="toggleMode" aria-label="Toggle light/dark mode">
+              <i class="bi bi-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-6 hero-content">
+          <h1 class="display-4 fw-bold mb-4">Transform Your Business with <span class="text-warning">Top Talent</span></h1>
+          <p class="lead mb-5">Access a global network of skilled professionals. From development to design, find the perfect solution for your business needs.</p>
+          <div class="d-flex flex-wrap gap-3 mb-5">
+            <a href="#categories" class="btn btn-light btn-lg rounded-pill px-4 py-3 animated-btn">
+              Explore Services <i class="bi bi-arrow-right ms-2"></i>
+            </a>
+            <a href="dashboard.html" class="btn btn-outline-light btn-lg rounded-pill px-4 py-3 animated-btn">
+              Sell Your Skills <i class="bi bi-currency-dollar ms-2"></i>
+            </a>
+          </div>
+          <div class="d-flex gap-4">
+            <div>
+              <h3 class="fw-bold">50K+</h3>
+              <p>Active Services</p>
+            </div>
+            <div>
+              <h3 class="fw-bold">10K+</h3>
+              <p>Expert Sellers</p>
+            </div>
+            <div>
+              <h3 class="fw-bold">98%</h3>
+              <p>Customer Satisfaction</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center d-none d-lg-block">
+          <img src="https://cdn.pixabay.com/photo/2020/01/21/18/39/sales-4783676_1280.png" alt="Marketplace" class="img-fluid floating-animation">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Popular Categories -->
+  <section id="categories" class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="feature-highlight pulse-animation">Browse Services</span>
+          <h2 class="section-title text-center mb-4">Popular Categories</h2>
+          <p class="text-muted">Explore services across our most popular categories and find the perfect solution for your needs</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="programming.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-primary bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-code-slash fs-2 text-primary"></i>
+                </div>
+                <h5 class="card-title mb-0">Development</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="design.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-success bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-palette fs-2 text-success"></i>
+                </div>
+                <h5 class="card-title mb-0">Design</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="marketing.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-warning bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-megaphone fs-2 text-warning"></i>
+                </div>
+                <h5 class="card-title mb-0">Marketing</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="music-audio.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-danger bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-music-note-beamed fs-2 text-danger"></i>
+                </div>
+                <h5 class="card-title mb-0">Music & Audio</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="writing.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-info bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-pencil fs-2 text-info"></i>
+                </div>
+                <h5 class="card-title mb-0">Writing</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+        <div class="col-6 col-md-4 col-lg-2">
+          <a href="business.html" class="text-decoration-none">
+            <div class="card text-center h-100 shadow-sm category-card">
+              <div class="card-body p-3">
+                <div class="icon-wrapper bg-purple bg-opacity-10 rounded-circle p-3 mb-3 mx-auto">
+                  <i class="bi bi-graph-up fs-2 text-purple"></i>
+                </div>
+                <h5 class="card-title mb-0">Business</h5>
+              </div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row g-4">
+        <div class="col-md-3 col-6">
+          <div class="stat-card">
+            <div class="icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <div class="number" data-count="85000">0</div>
+            <div class="label">Active Users</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-card">
+            <div class="icon">
+              <i class="bi bi-bag"></i>
+            </div>
+            <div class="number" data-count="50000">0</div>
+            <div class="label">Services Offered</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-card">
+            <div class="icon">
+              <i class="bi bi-globe"></i>
+            </div>
+            <div class="number" data-count="120">0</div>
+            <div class="label">Countries</div>
+          </div>
+        </div>
+        <div class="col-md-3 col-6">
+          <div class="stat-card">
+            <div class="icon">
+              <i class="bi bi-currency-dollar"></i>
+            </div>
+            <div class="number" data-count="250">0</div>
+            <div class="label">Million Transactions</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="feature-highlight">Premium Services</span>
+          <h2 class="section-title text-center mb-4">Featured Services</h2>
+          <p class="text-muted">Handpicked services from our top-rated professionals</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <!-- Product cards -->
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+          <div class="card h-100 product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Web Development">
+              <span class="feature-badge bg-warning text-dark">Featured</span>
+              <div class="card-img-overlay d-flex align-items-end justify-content-end">
+                <button class="btn btn-light btn-sm rounded-circle">
+                  <i class="bi bi-heart"></i>
+                </button>
+              </div>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Responsive Website Development</h5>
+              <p class="card-text text-muted small">by <span class="fw-bold">JohnDoe</span> <span class="badge bg-warning text-dark ms-1">PRO</span></p>
+              <div class="mb-2">
+                <span class="rating-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-half"></i>
+                </span>
+                <span class="text-muted small">(120 reviews)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold mb-0">Starting at <span class="text-primary">$120</span></p>
+                <span class="badge bg-success">Express 24h</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+              <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                data-title="Responsive Website"
+                data-seller="JohnDoe"
+                data-price="120"
+                data-img="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+              >
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+          <div class="card h-100 product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Logo Design">
+              <span class="feature-badge bg-success">Popular</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Modern Logo Design</h5>
+              <p class="card-text text-muted small">by <span class="fw-bold">DesignGuru</span> <span class="badge bg-success ms-1">Top Rated</span></p>
+              <div class="mb-2">
+                <span class="rating-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                </span>
+                <span class="text-muted small">(98 reviews)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold mb-0">Starting at <span class="text-primary">$75</span></p>
+                <span class="badge bg-info">3 Revisions</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+              <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                data-title="Modern Logo Design"
+                data-seller="DesignGuru"
+                data-price="75"
+                data-img="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80"
+              >
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+          <div class="card h-100 product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Marketing">
+              <span class="feature-badge bg-primary">New</span>
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Social Media Marketing</h5>
+              <p class="card-text text-muted small">by <span class="fw-bold">MarketPro</span></p>
+              <div class="mb-2">
+                <span class="rating-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                </span>
+                <span class="text-muted small">(75 reviews)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold mb-0">Starting at <span class="text-primary">$50</span></p>
+                <span class="badge bg-warning">30 Day Plan</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+              <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                data-title="Social Media Marketing"
+                data-seller="MarketPro"
+                data-price="50"
+                data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+              >
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <div class="col-12 col-md-6 col-lg-4 col-xl-3">
+          <div class="card h-100 product-card">
+            <div class="position-relative">
+              <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Music Production">
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">Music Production & Mixing</h5>
+              <p class="card-text text-muted small">by <span class="fw-bold">SoundMaster</span></p>
+              <div class="mb-2">
+                <span class="rating-stars">
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star-fill"></i>
+                  <i class="bi bi-star"></i>
+                </span>
+                <span class="text-muted small">(60 reviews)</span>
+              </div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="fw-bold mb-0">Starting at <span class="text-primary">$90</span></p>
+                <span class="badge bg-danger">Pro Tools</span>
+              </div>
+            </div>
+            <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+              <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                data-title="Music Production"
+                data-seller="SoundMaster"
+                data-price="90"
+                data-img="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+              >
+                <i class="bi bi-cart-plus me-1"></i> Add to Cart
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="text-center mt-4">
+        <a href="all-products.html" class="btn btn-primary px-5 py-3 rounded-pill">
+          View All Services <i class="bi bi-arrow-right ms-2"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="feature-highlight">Our Advantages</span>
+          <h2 class="section-title text-center mb-4">Why Choose MarketPro?</h2>
+          <p class="text-muted">We provide the best experience for both buyers and sellers</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-box text-center p-4">
+            <div class="feature-icon">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <h5 class="mb-3">Secure Payments</h5>
+            <p class="text-muted">All transactions are protected with bank-level encryption for your peace of mind.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-box text-center p-4">
+            <div class="feature-icon">
+              <i class="bi bi-people"></i>
+            </div>
+            <h5 class="mb-3">Top Talent</h5>
+            <p class="text-muted">Work with verified, top-rated professionals from around the world.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-box text-center p-4">
+            <div class="feature-icon">
+              <i class="bi bi-clock-history"></i>
+            </div>
+            <h5 class="mb-3">24/7 Support</h5>
+            <p class="text-muted">Our dedicated support team is always here to help you, anytime you need.</p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="feature-box text-center p-4">
+            <div class="feature-icon">
+              <i class="bi bi-award"></i>
+            </div>
+            <h5 class="mb-3">Satisfaction Guarantee</h5>
+            <p class="text-muted">We ensure you get the results you want, or your money back with no questions asked.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="feature-highlight">Customer Voices</span>
+          <h2 class="section-title text-center mb-4">What Our Clients Say</h2>
+          <p class="text-muted">Hear from businesses that have transformed with our marketplace</p>
+        </div>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="testimonial-card p-4 h-100">
+            <div class="d-flex align-items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/women/45.jpg" class="rounded-circle me-3" width="60" alt="Client">
+              <div>
+                <h5 class="mb-0">Sarah Johnson</h5>
+                <p class="text-muted mb-0">CEO, TechSolutions</p>
+              </div>
+            </div>
+            <div class="rating-stars mb-3">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="mb-0">"The website developed by MarketPro exceeded our expectations. Professional, on-time delivery, and excellent communication throughout the project."</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card p-4 h-100">
+            <div class="d-flex align-items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/men/32.jpg" class="rounded-circle me-3" width="60" alt="Client">
+              <div>
+                <h5 class="mb-0">Michael Chen</h5>
+                <p class="text-muted mb-0">Marketing Director</p>
+              </div>
+            </div>
+            <div class="rating-stars mb-3">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-half"></i>
+            </div>
+            <p class="mb-0">"Our social media presence has doubled since working with MarketPro experts. Their strategies are data-driven and highly effective."</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="testimonial-card p-4 h-100">
+            <div class="d-flex align-items-center mb-4">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle me-3" width="60" alt="Client">
+              <div>
+                <h5 class="mb-0">Emma Rodriguez</h5>
+                <p class="text-muted mb-0">Startup Founder</p>
+              </div>
+            </div>
+            <div class="rating-stars mb-3">
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+              <i class="bi bi-star-fill"></i>
+            </div>
+            <p class="mb-0">"The branding package we received was exceptional. Professional, creative, and delivered ahead of schedule. Will definitely use again!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Sellers -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-md-8 mx-auto text-center">
+          <span class="feature-highlight">Top Talent</span>
+          <h2 class="section-title text-center mb-4">Featured Sellers</h2>
+          <p class="text-muted">Meet our most trusted professionals</p>
+        </div>
+      </div>
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card text-center shadow-sm seller-card">
+            <div class="card-body p-4">
+              <img src="https://randomuser.me/api/portraits/men/45.jpg" class="rounded-circle mx-auto mb-3" width="100" alt="Seller">
+              <div class="d-flex justify-content-center mb-3">
+                <span class="badge bg-warning text-dark me-1">PRO</span>
+                <span class="badge bg-success">Top Rated</span>
+              </div>
+              <h5 class="card-title mb-1">Amit Sharma</h5>
+              <p class="text-muted mb-3">Web Developer</p>
+              <div class="progress-ring mb-3">
+                <svg width="100" height="100">
+                  <circle class="progress-ring__circle--background" stroke-width="6" fill="transparent" r="45" cx="50" cy="50"/>
+                  <circle class="progress-ring__circle--progress" stroke-width="6" fill="transparent" r="45" cx="50" cy="50" stroke-dasharray="283" stroke-dashoffset="28.3"/>
+                </svg>
+                <div class="progress-value">90%</div>
+              </div>
+              <p class="text-success mb-0"><i class="bi bi-star-fill"></i> 4.9/5.0 (420 reviews)</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card text-center shadow-sm seller-card">
+            <div class="card-body p-4">
+              <img src="https://randomuser.me/api/portraits/women/68.jpg" class="rounded-circle mx-auto mb-3" width="100" alt="Seller">
+              <div class="d-flex justify-content-center mb-3">
+                <span class="badge bg-success me-1">Top Rated</span>
+                <span class="badge bg-info">Recommended</span>
+              </div>
+              <h5 class="card-title mb-1">Priya Verma</h5>
+              <p class="text-muted mb-3">Graphic Designer</p>
+              <div class="progress-ring mb-3">
+                <svg width="100" height="100">
+                  <circle class="progress-ring__circle--background" stroke-width="6" fill="transparent" r="45" cx="50" cy="50"/>
+                  <circle class="progress-ring__circle--progress" stroke-width="6" fill="transparent" r="45" cx="50" cy="50" stroke-dasharray="283" stroke-dashoffset="14.15"/>
+                </svg>
+                <div class="progress-value">95%</div>
+              </div>
+              <p class="text-success mb-0"><i class="bi bi-star-fill"></i> 5.0/5.0 (356 reviews)</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 col-xl-3">
+          <div class="card text-center shadow-sm seller-card">
+            <div class="card-body p-4">
+              <img src="https://randomuser.me/api/portraits/men/75.jpg" class="rounded-circle mx-auto mb-3" width="100" alt="Seller">
+              <div class="d-flex justify-content-center mb-3">
+                <span class="badge bg-warning text-dark me-1">PRO</span>
+                <span class="badge bg-primary">Fast Delivery</span>
+              </div>
+              <h5 class="card-title mb-1">David Wilson</h5>
+              <p class="text-muted mb-3">Marketing Specialist</p>
+              <div class="progress-ring mb-3">
+                <svg width="100" height="100">
+                  <circle class="progress-ring__circle--background" stroke-width="6" fill="transparent" r="45" cx="50" cy="50"/>
+                  <circle class="progress-ring__circle--progress" stroke-width="6" fill="transparent" r="45" cx="50" cy="50" stroke-dasharray="283" stroke-dashoffset="56.6"/>
+                </svg>
+                <div class="progress-value">80%</div>
+              </div>
+              <p class="text-success mb-0"><i class="bi bi-star-fill"></i> 4.8/5.0 (287 reviews)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-5 bg-primary text-white">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-lg-8 mb-4 mb-lg-0">
+          <h2 class="mb-3">Ready to Grow Your Business?</h2>
+          <p class="mb-0">Join thousands of businesses already using MarketPro to access top talent and services.</p>
+        </div>
+        <div class="col-lg-4 text-lg-end">
+          <a href="signup.html" class="btn btn-light btn-lg px-5 py-3 rounded-pill fw-bold animated-btn">
+            Get Started Now <i class="bi bi-arrow-right ms-2"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="mb-4"><i class="bi bi-shop-window me-2"></i> MarketPro</h5>
+          <p class="mb-4">Connecting businesses with top professionals worldwide. Quality services, secure transactions, and exceptional support.</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-twitter fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 mb-4 mb-md-0">
+          <h5 class="mb-4">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="index.html">Home</a></li>
+            <li class="mb-2"><a href="all-products.html">Services</a></li>
+            <li class="mb-2"><a href="sellers.html">Top Sellers</a></li>
+            <li class="mb-2"><a href="categories.html">Categories</a></li>
+            <li class="mb-2"><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-3 mb-4 mb-md-0">
+          <h5 class="mb-4">Resources</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="help.html">Help Center</a></li>
+            <li class="mb-2"><a href="faq.html">FAQs</a></li>
+            <li class="mb-2"><a href="terms.html">Terms of Service</a></li>
+            <li class="mb-2"><a href="privacy.html">Privacy Policy</a></li>
+            <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h5 class="mb-4">Newsletter</h5>
+          <p>Subscribe to get special offers, free giveaways, and new service alerts.</p>
+          <form class="d-flex mt-3">
+            <input type="email" class="form-control me-2" placeholder="Your email" aria-label="Email">
+            <button class="btn btn-light" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <hr class="mt-4 mb-4">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">&copy; 2023 MarketPro. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="d-flex justify-content-md-end gap-3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" height="30">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Order Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add to Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex mb-4">
+            <img id="modalProductImg" src="" alt="Product" class="img-fluid rounded me-4" width="120">
+            <div>
+              <h5 id="modalProductTitle"></h5>
+              <p class="mb-1">Seller: <span id="modalProductSeller" class="fw-bold"></span></p>
+              <p class="mb-0">Price: <span id="modalProductPrice" class="fw-bold text-primary"></span></p>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Select Package</label>
+            <select class="form-select">
+              <option selected>Basic Package ($<span id="basicPrice"></span>)</option>
+              <option>Standard Package (+$<span id="standardPrice"></span>)</option>
+              <option>Premium Package (+$<span id="premiumPrice"></span>)</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Delivery Time</label>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="deliveryTime" id="express" checked>
+              <label class="form-check-label" for="express">
+                Express Delivery (3 days) + $20.00
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deliveryTime" id="standard">
+              <label class="form-check-label" for="standard">
+                Standard Delivery (7 days)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Dark Mode Toggle
+    const toggleMode = document.getElementById('toggleMode');
+    const body = document.body;
+    const darkModeClass = 'dark-mode';
+    
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add(darkModeClass);
+      toggleMode.innerHTML = '<i class="bi bi-sun"></i>';
+    }
+    
+    toggleMode.addEventListener('click', () => {
+      body.classList.toggle(darkModeClass);
+      
+      if (body.classList.contains(darkModeClass)) {
+        localStorage.setItem('darkMode', 'enabled');
+        toggleMode.innerHTML = '<i class="bi bi-sun"></i>';
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+        toggleMode.innerHTML = '<i class="bi bi-moon"></i>';
+      }
+    });
+    
+    // Order Modal Functionality
+    const orderButtons = document.querySelectorAll('.order-btn');
+    const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+    const modalProductTitle = document.getElementById('modalProductTitle');
+    const modalProductSeller = document.getElementById('modalProductSeller');
+    const modalProductPrice = document.getElementById('modalProductPrice');
+    const modalProductImg = document.getElementById('modalProductImg');
+    const basicPrice = document.getElementById('basicPrice');
+    const standardPrice = document.getElementById('standardPrice');
+    const premiumPrice = document.getElementById('premiumPrice');
+    
+    orderButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const title = button.getAttribute('data-title');
+        const seller = button.getAttribute('data-seller');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
+        
+        modalProductTitle.textContent = title;
+        modalProductSeller.textContent = seller;
+        modalProductPrice.textContent = '$' + price;
+        modalProductImg.src = img;
+        modalProductImg.alt = title;
+        
+        // Set package prices
+        basicPrice.textContent = price;
+        standardPrice.textContent = (parseInt(price) + 30).toString();
+        premiumPrice.textContent = (parseInt(price) + 60).toString();
+        
+        orderModal.show();
+      });
+    });
+    
+    // Back to Top Button
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Scroll Progress Bar
+    const scrollProgress = document.querySelector('.scroll-progress');
+    
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+      
+      scrollProgress.style.width = progress + '%';
+    });
+    
+    // Animated Counter for Stats
+    const counters = document.querySelectorAll('.number');
+    const speed = 200;
+    
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-count');
+        const count = +counter.innerText;
+        
+        const increment = target / speed;
+        
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment);
+          setTimeout(updateCount, 1);
+        } else {
+          counter.innerText = target;
+        }
+      };
+      
+      updateCount();
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,1342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>All Products - Marketplace</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4361ee;
+      --secondary: #3f37c9;
+      --accent: #4895ef;
+      --light: #f8f9fa;
+      --dark: #181818;
+      --success: #4cc9f0;
+      --warning: #f72585;
+      --gray: #6c757d;
+      --light-gray: #e9ecef;
+      --transition: all 0.3s ease;
+    }
+
+    body {
+      transition: var(--transition);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      color: #333;
+    }
+
+    .dark-mode { 
+      background: var(--dark) !important; 
+      color: #f1f1f1 !important; 
+    }
+    .dark-mode .card { 
+      background: #23272b; 
+      color: #fff; 
+      border: 1px solid #343a40;
+    }
+    .dark-mode .sticky-footer { 
+      background: #1a1d21; 
+      color: #f1f1f1; 
+    }
+    .dark-mode .bg-light { 
+      background-color: #212529 !important; 
+    }
+    .dark-mode .text-muted { 
+      color: #adb5bd !important; 
+    }
+    .dark-mode .filter-card {
+      background-color: #23272b;
+      border-color: #343a40;
+    }
+    .dark-mode .form-control, .dark-mode .form-select {
+      background-color: #2d3137;
+      border-color: #3d4249;
+      color: #e9ecef;
+    }
+    .dark-mode .form-control:focus, .dark-mode .form-select:focus {
+      background-color: #2d3137;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 0.25rem rgba(67, 97, 238, 0.25);
+      color: #e9ecef;
+    }
+
+    .sticky-footer { 
+      background: #23272b; 
+      color: #fff; 
+      padding: 40px 0 20px 0; 
+    }
+    .sticky-footer a { 
+      color: #bbb; 
+      text-decoration: none; 
+    }
+    .sticky-footer a:hover { 
+      color: #fff; 
+    }
+    
+    a:focus, button:focus, input:focus { 
+      outline: 2px solid var(--accent) !important; 
+      outline-offset: 2px; 
+    }
+
+    /* Custom Styles */
+    .navbar {
+      box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+      padding: 12px 0;
+    }
+    
+    .filter-card {
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      border: 1px solid #e9ecef;
+      background: white;
+    }
+    
+    .filter-header {
+      padding: 15px 20px;
+      border-bottom: 1px solid #e9ecef;
+      font-weight: 600;
+    }
+    
+    .filter-body {
+      padding: 20px;
+    }
+    
+    .category-card {
+      transition: var(--transition);
+      border-radius: 12px;
+      overflow: hidden;
+      border: none;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+    
+    .product-card {
+      border: none;
+      border-radius: 12px;
+      overflow: hidden;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      height: 100%;
+    }
+    
+    .product-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .rating-stars {
+      color: #ffc107;
+      margin-bottom: 5px;
+    }
+    
+    .feature-badge {
+      position: absolute;
+      top: 15px;
+      left: 15px;
+      z-index: 3;
+      font-size: 0.8rem;
+    }
+    
+    .back-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+      z-index: 1000;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    }
+    
+    .back-to-top.show {
+      opacity: 1;
+      visibility: visible;
+    }
+    
+    .feature-highlight {
+      padding: 5px 15px;
+      background: rgba(67, 97, 238, 0.1);
+      color: var(--primary);
+      border-radius: 20px;
+      font-size: 0.85rem;
+      display: inline-block;
+      margin-bottom: 15px;
+    }
+    
+    .pagination .page-item .page-link {
+      border-radius: 8px;
+      margin: 0 5px;
+      border: none;
+      color: var(--primary);
+    }
+    
+    .pagination .page-item.active .page-link {
+      background: var(--primary);
+      border-color: var(--primary);
+    }
+    
+    .pagination .page-item.disabled .page-link {
+      color: #6c757d;
+    }
+    
+    .sort-dropdown .dropdown-toggle::after {
+      display: none;
+    }
+    
+    .search-bar {
+      position: relative;
+    }
+    
+    .search-bar .form-control {
+      padding-left: 45px;
+      border-radius: 50px;
+      height: 48px;
+    }
+    
+    .search-bar .search-icon {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #6c757d;
+      pointer-events: none;
+    }
+    
+    .filter-toggle {
+      display: none;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 10px 15px;
+      font-weight: 500;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      background: white;
+      border-radius: 12px;
+      padding: 15px;
+      text-align: center;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+      transition: var(--transition);
+      height: 100%;
+    }
+    
+    .stat-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+    
+    .stat-card .icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: rgba(67, 97, 238, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 15px;
+      font-size: 1.2rem;
+      color: var(--primary);
+    }
+    
+    .dark-mode .stat-card {
+      background: #23272b;
+    }
+    
+    .dark-mode .filter-card {
+      background: #23272b;
+    }
+    
+    .dark-mode .filter-header {
+      border-bottom: 1px solid #343a40;
+    }
+    
+    .dark-mode .stat-card .label {
+      color: #adb5bd;
+    }
+    
+    .dark-mode .pagination .page-link {
+      background: #23272b;
+      color: #e9ecef;
+    }
+    
+    .dark-mode .pagination .page-item.active .page-link {
+      background: var(--primary);
+    }
+    
+    .dark-mode .pagination .page-item.disabled .page-link {
+      color: #6c757d;
+      background: #23272b;
+    }
+    
+    @media (max-width: 768px) {
+      .filter-toggle {
+        display: block;
+      }
+      
+      .filter-column {
+        position: fixed;
+        top: 0;
+        left: -300px;
+        width: 280px;
+        height: 100vh;
+        background: white;
+        z-index: 1050;
+        padding: 20px;
+        overflow-y: auto;
+        transition: left 0.3s ease;
+        box-shadow: 5px 0 15px rgba(0,0,0,0.1);
+      }
+      
+      .dark-mode .filter-column {
+        background: #23272b;
+      }
+      
+      .filter-column.show {
+        left: 0;
+      }
+      
+      .filter-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(0,0,0,0.5);
+        z-index: 1040;
+      }
+      
+      .filter-overlay.show {
+        display: block;
+      }
+      
+      .close-filters {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        color: #6c757d;
+      }
+      
+      .dark-mode .close-filters {
+        color: #adb5bd;
+      }
+    }
+    
+    .price-range-slider {
+      padding: 0 10px;
+    }
+    
+    .price-range-slider .noUi-connect {
+      background: var(--primary);
+    }
+    
+    .price-range-slider .noUi-handle {
+      width: 18px;
+      height: 18px;
+      top: -7px;
+      right: -9px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid var(--primary);
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .price-range-slider .noUi-handle:after, 
+    .price-range-slider .noUi-handle:before {
+      display: none;
+    }
+    
+    .price-values {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+    
+    .price-values span {
+      font-size: 0.9rem;
+      color: #6c757d;
+    }
+    
+    .dark-mode .price-values span {
+      color: #adb5bd;
+    }
+    
+    .scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      background: var(--primary);
+      z-index: 1000;
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+    
+    .sorting-options {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    
+    .sorting-options .btn {
+      border-radius: 50px;
+      padding: 6px 15px;
+      font-size: 0.9rem;
+    }
+  </style>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.css" />
+</head>
+<body>
+  <!-- Scroll Progress -->
+  <div class="scroll-progress"></div>
+  
+  <!-- Back to Top -->
+  <div class="back-to-top">
+    <i class="bi bi-arrow-up"></i>
+  </div>
+  
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+        <i class="bi bi-shop-window me-2 text-primary"></i> 
+        <span class="gradient-text">MarketPro</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="all-products.html" class="nav-link active" aria-current="page">Products</a></li>
+          <li class="nav-item"><a href="categories.html" class="nav-link">Categories</a></li>
+          <li class="nav-item"><a href="sellers.html" class="nav-link">Sellers</a></li>
+          <li class="nav-item"><a href="enterprise.html" class="nav-link">Enterprise</a></li>
+        </ul>
+        
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item me-3">
+            <a href="cart.html" class="nav-link position-relative">
+              <i class="bi bi-cart3 fs-5"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">3</span>
+            </a>
+          </li>
+          <li class="nav-item dropdown me-3">
+            <a class="nav-link dropdown-toggle" href="#" id="notificationsDropdown" role="button" data-bs-toggle="dropdown">
+              <i class="bi bi-bell fs-5"></i>
+              <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">5</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationsDropdown">
+              <li><a class="dropdown-item" href="#"><i class="bi bi-cart-check me-2"></i> New order received</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-chat-dots me-2"></i> New message from seller</a></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-star me-2"></i> New review on your service</a></li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown">
+              <img src="https://randomuser.me/api/portraits/men/41.jpg" class="rounded-circle me-2" width="32" height="32" alt="User">
+              <span>John Doe</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+              <li><a class="dropdown-item" href="dashboard.html"><i class="bi bi-speedometer2 me-2"></i> Dashboard</a></li>
+              <li><a class="dropdown-item" href="profile.html"><i class="bi bi-person me-2"></i> Profile</a></li>
+              <li><a class="dropdown-item" href="orders.html"><i class="bi bi-bag me-2"></i> Orders</a></li>
+              <li><a class="dropdown-item" href="messages.html"><i class="bi bi-chat me-2"></i> Messages</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item" href="#"><i class="bi bi-box-arrow-right me-2"></i> Logout</a></li>
+            </ul>
+          </li>
+          <li class="nav-item ms-2">
+            <button class="btn btn-outline-dark rounded-circle" id="toggleMode" aria-label="Toggle light/dark mode">
+              <i class="bi bi-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Products Section -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-12">
+          <h1 class="fw-bold mb-2">Find the Perfect Service</h1>
+          <p class="text-muted">Browse through our extensive collection of professional services</p>
+        </div>
+      </div>
+      
+      <!-- Mobile Filter Toggle -->
+      <button class="filter-toggle" id="mobileFilterToggle">
+        <i class="bi bi-funnel me-2"></i> Filter & Sort
+      </button>
+      
+      <div class="row">
+        <!-- Filter Column -->
+        <div class="col-lg-3 mb-4 mb-lg-0 filter-column" id="filterColumn">
+          <button class="close-filters d-lg-none" id="closeFilters">
+            <i class="bi bi-x-lg"></i>
+          </button>
+          
+          <div class="filter-card mb-4">
+            <div class="filter-header">
+              <h6 class="mb-0">Search</h6>
+            </div>
+            <div class="filter-body">
+              <div class="search-bar mb-3">
+                <i class="bi bi-search search-icon"></i>
+                <input type="text" class="form-control" placeholder="Search services...">
+              </div>
+            </div>
+          </div>
+          
+          <div class="filter-card mb-4">
+            <div class="filter-header">
+              <h6 class="mb-0">Categories</h6>
+            </div>
+            <div class="filter-body">
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category1" checked>
+                <label class="form-check-label" for="category1">
+                  Web Development
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category2">
+                <label class="form-check-label" for="category2">
+                  Graphic Design
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category3" checked>
+                <label class="form-check-label" for="category3">
+                  Digital Marketing
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category4">
+                <label class="form-check-label" for="category4">
+                  Content Writing
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category5">
+                <label class="form-check-label" for="category5">
+                  Video Production
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="category6">
+                <label class="form-check-label" for="category6">
+                  SEO Services
+                </label>
+              </div>
+              <a href="#" class="small text-primary">View all categories</a>
+            </div>
+          </div>
+          
+          <div class="filter-card mb-4">
+            <div class="filter-header">
+              <h6 class="mb-0">Price Range</h6>
+            </div>
+            <div class="filter-body">
+              <div class="price-range-slider mb-3" id="priceSlider"></div>
+              <div class="price-values">
+                <span id="minPrice">$10</span>
+                <span id="maxPrice">$500</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="filter-card mb-4">
+            <div class="filter-header">
+              <h6 class="mb-0">Seller Level</h6>
+            </div>
+            <div class="filter-body">
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="level1" checked>
+                <label class="form-check-label" for="level1">
+                  Top Rated Sellers
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="level2">
+                <label class="form-check-label" for="level2">
+                  Level Two Sellers
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="level3">
+                <label class="form-check-label" for="level3">
+                  New Sellers
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="filter-card mb-4">
+            <div class="filter-header">
+              <h6 class="mb-0">Delivery Time</h6>
+            </div>
+            <div class="filter-body">
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="delivery1">
+                <label class="form-check-label" for="delivery1">
+                  Express (24H)
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="delivery2" checked>
+                <label class="form-check-label" for="delivery2">
+                  Up to 3 days
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="delivery3">
+                <label class="form-check-label" for="delivery3">
+                  Up to 7 days
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="delivery4">
+                <label class="form-check-label" for="delivery4">
+                  Anytime
+                </label>
+              </div>
+            </div>
+          </div>
+          
+          <div class="filter-card">
+            <div class="filter-header">
+              <h6 class="mb-0">Rating</h6>
+            </div>
+            <div class="filter-body">
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="rating5" checked>
+                <label class="form-check-label" for="rating5">
+                  <span class="rating-stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                  </span>
+                  (4.9+)
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="rating4">
+                <label class="form-check-label" for="rating4">
+                  <span class="rating-stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                  </span>
+                  (4.0+)
+                </label>
+              </div>
+              <div class="form-check mb-2">
+                <input class="form-check-input" type="checkbox" id="rating3">
+                <label class="form-check-label" for="rating3">
+                  <span class="rating-stars">
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star-fill"></i>
+                    <i class="bi bi-star"></i>
+                    <i class="bi bi-star"></i>
+                  </span>
+                  (3.0+)
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Products Column -->
+        <div class="col-lg-9">
+          <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4">
+            <div class="mb-3 mb-md-0">
+              <h5 class="fw-bold mb-0">Showing <span class="text-primary">48</span> services</h5>
+              <p class="text-muted small mb-0">Refine your search using filters</p>
+            </div>
+            
+            <div class="d-flex align-items-center">
+              <span class="me-2 d-none d-md-block">Sort by:</span>
+              <div class="sorting-options">
+                <button class="btn btn-outline-primary active">Popular</button>
+                <button class="btn btn-outline-primary">Newest</button>
+                <button class="btn btn-outline-primary">Highest Rated</button>
+                <button class="btn btn-outline-primary">Price: Low to High</button>
+                <button class="btn btn-outline-primary">Price: High to Low</button>
+              </div>
+            </div>
+          </div>
+          
+          <div class="row g-4">
+            <!-- Product Card 1 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Responsive Website">
+                  <span class="feature-badge bg-warning text-dark">Featured</span>
+                  <div class="card-img-overlay d-flex align-items-end justify-content-end">
+                    <button class="btn btn-light btn-sm rounded-circle">
+                      <i class="bi bi-heart"></i>
+                    </button>
+                  </div>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Responsive Website Development</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">JohnDoe</span> <span class="badge bg-warning text-dark ms-1">PRO</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                    <span class="text-muted small">(120 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$120</span></p>
+                    <span class="badge bg-success">Express 24h</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Responsive Website"
+                    data-seller="JohnDoe"
+                    data-price="120"
+                    data-img="https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 2 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Modern Logo Design">
+                  <span class="feature-badge bg-success">Popular</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Modern Logo Design</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">DesignGuru</span> <span class="badge bg-success ms-1">Top Rated</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </span>
+                    <span class="text-muted small">(98 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$75</span></p>
+                    <span class="badge bg-info">3 Revisions</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Modern Logo Design"
+                    data-seller="DesignGuru"
+                    data-price="75"
+                    data-img="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 3 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Marketing">
+                  <span class="feature-badge bg-primary">New</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Social Media Marketing</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">MarketPro</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star"></i>
+                    </span>
+                    <span class="text-muted small">(75 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$50</span></p>
+                    <span class="badge bg-warning">30 Day Plan</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Social Media Marketing"
+                    data-seller="MarketPro"
+                    data-price="50"
+                    data-img="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 4 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Music Production">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Music Production & Mixing</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">SoundMaster</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star"></i>
+                    </span>
+                    <span class="text-muted small">(60 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$90</span></p>
+                    <span class="badge bg-danger">Pro Tools</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Music Production"
+                    data-seller="SoundMaster"
+                    data-price="90"
+                    data-img="https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 5 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="SEO Optimization">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">SEO Optimization Service</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">SeoExpert</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                    <span class="text-muted small">(45 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$65</span></p>
+                    <span class="badge bg-info">Keyword Research</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="SEO Optimization"
+                    data-seller="SeoExpert"
+                    data-price="65"
+                    data-img="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 6 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1587440871875-191322ee64b0?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Creative Logo Design">
+                  <span class="feature-badge bg-info">Sale</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Creative Logo Design</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">LogoStar</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </span>
+                    <span class="text-muted small">(55 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$80</span></p>
+                    <span class="badge bg-warning">Vector Files</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Creative Logo Design"
+                    data-seller="LogoStar"
+                    data-price="80"
+                    data-img="https://images.unsplash.com/photo-1587440871875-191322ee64b0?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 7 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Marketing Strategy">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Marketing Strategy</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">MarketGenius</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </span>
+                    <span class="text-muted small">(40 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$150</span></p>
+                    <span class="badge bg-success">Custom Plan</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Marketing Strategy"
+                    data-seller="MarketGenius"
+                    data-price="150"
+                    data-img="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 8 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Content Creation">
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Content Creation</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">ContentPro</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star"></i>
+                    </span>
+                    <span class="text-muted small">(35 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$90</span></p>
+                    <span class="badge bg-info">10 Articles</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Content Creation"
+                    data-seller="ContentPro"
+                    data-price="90"
+                    data-img="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Product Card 9 -->
+            <div class="col-12 col-md-6 col-lg-4">
+              <div class="card product-card">
+                <div class="position-relative">
+                  <img src="https://images.unsplash.com/photo-1563014959-7aaa83350992?auto=format&fit=crop&w=600&q=80" class="card-img-top" alt="Mobile App">
+                  <span class="feature-badge bg-purple">Trending</span>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title">Mobile App Development</h5>
+                  <p class="card-text text-muted small">by <span class="fw-bold">AppDevPro</span> <span class="badge bg-success ms-1">Top Rated</span></p>
+                  <div class="mb-2">
+                    <span class="rating-stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                    </span>
+                    <span class="text-muted small">(87 reviews)</span>
+                  </div>
+                  <div class="d-flex justify-content-between align-items-center">
+                    <p class="fw-bold mb-0">Starting at <span class="text-primary">$250</span></p>
+                    <span class="badge bg-info">iOS & Android</span>
+                  </div>
+                </div>
+                <div class="card-footer bg-white border-0 d-flex justify-content-between pt-0">
+                  <button class="btn btn-outline-primary btn-sm order-btn w-100"
+                    data-title="Mobile App Development"
+                    data-seller="AppDevPro"
+                    data-price="250"
+                    data-img="https://images.unsplash.com/photo-1563014959-7aaa83350992?auto=format&fit=crop&w=400&q=80"
+                  >
+                    <i class="bi bi-cart-plus me-1"></i> Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pagination -->
+          <nav class="mt-5">
+            <ul class="pagination justify-content-center">
+              <li class="page-item disabled">
+                <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Previous</a>
+              </li>
+              <li class="page-item active"><a class="page-link" href="#">1</a></li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#">Next</a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter -->
+  <section class="py-5 bg-light">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h3 class="mb-4">Get the latest updates</h3>
+          <p class="mb-4 text-muted">Subscribe to our newsletter for new services, promotions, and industry insights.</p>
+          <form class="d-flex mb-3">
+            <input type="email" class="form-control me-2" placeholder="Your email address" aria-label="Email">
+            <button class="btn btn-primary" type="submit">Subscribe</button>
+          </form>
+          <p class="small text-muted">By subscribing, you agree to our Privacy Policy and consent to receive updates.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="sticky-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="mb-4"><i class="bi bi-shop-window me-2"></i> MarketPro</h5>
+          <p class="mb-4">Connecting businesses with top professionals worldwide. Quality services, secure transactions, and exceptional support.</p>
+          <div class="d-flex gap-3">
+            <a href="#" class="text-white"><i class="bi bi-facebook fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-twitter fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-instagram fs-5"></i></a>
+            <a href="#" class="text-white"><i class="bi bi-linkedin fs-5"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-2 col-md-3 mb-4 mb-md-0">
+          <h5 class="mb-4">Quick Links</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="index.html">Home</a></li>
+            <li class="mb-2"><a href="all-products.html">Services</a></li>
+            <li class="mb-2"><a href="sellers.html">Top Sellers</a></li>
+            <li class="mb-2"><a href="categories.html">Categories</a></li>
+            <li class="mb-2"><a href="blog.html">Blog</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-2 col-md-3 mb-4 mb-md-0">
+          <h5 class="mb-4">Resources</h5>
+          <ul class="list-unstyled">
+            <li class="mb-2"><a href="help.html">Help Center</a></li>
+            <li class="mb-2"><a href="faq.html">FAQs</a></li>
+            <li class="mb-2"><a href="terms.html">Terms of Service</a></li>
+            <li class="mb-2"><a href="privacy.html">Privacy Policy</a></li>
+            <li class="mb-2"><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="col-lg-4 col-md-6">
+          <h5 class="mb-4">Newsletter</h5>
+          <p>Subscribe to get special offers, free giveaways, and new service alerts.</p>
+          <form class="d-flex mt-3">
+            <input type="email" class="form-control me-2" placeholder="Your email" aria-label="Email">
+            <button class="btn btn-light" type="submit">Subscribe</button>
+          </form>
+        </div>
+      </div>
+      <hr class="mt-4 mb-4">
+      <div class="row align-items-center">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <p class="mb-0">&copy; 2023 MarketPro. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="d-flex justify-content-md-end gap-3">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b7/MasterCard_Logo.svg" alt="Mastercard" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal" height="30">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c7/Stripe_Logo%2C_revised_2016.svg" alt="Stripe" height="30">
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Order Modal -->
+  <div class="modal fade" id="orderModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Add to Cart</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="d-flex mb-4">
+            <img id="modalProductImg" src="" alt="Product" class="img-fluid rounded me-4" width="120">
+            <div>
+              <h5 id="modalProductTitle"></h5>
+              <p class="mb-1">Seller: <span id="modalProductSeller" class="fw-bold"></span></p>
+              <p class="mb-0">Price: <span id="modalProductPrice" class="fw-bold text-primary"></span></p>
+            </div>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Select Package</label>
+            <select class="form-select">
+              <option selected>Basic Package ($<span id="basicPrice"></span>)</option>
+              <option>Standard Package (+$<span id="standardPrice"></span>)</option>
+              <option>Premium Package (+$<span id="premiumPrice"></span>)</option>
+            </select>
+          </div>
+          <div class="mb-4">
+            <label class="form-label">Delivery Time</label>
+            <div class="form-check mb-2">
+              <input class="form-check-input" type="radio" name="deliveryTime" id="express" checked>
+              <label class="form-check-label" for="express">
+                Express Delivery (3 days) + $20.00
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="deliveryTime" id="standard">
+              <label class="form-check-label" for="standard">
+                Standard Delivery (7 days)
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-primary">Add to Cart</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.7.0/nouislider.min.js"></script>
+  <script>
+    // Dark Mode Toggle
+    const toggleMode = document.getElementById('toggleMode');
+    const body = document.body;
+    const darkModeClass = 'dark-mode';
+    
+    // Check for saved dark mode preference
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add(darkModeClass);
+      toggleMode.innerHTML = '<i class="bi bi-sun"></i>';
+    }
+    
+    toggleMode.addEventListener('click', () => {
+      body.classList.toggle(darkModeClass);
+      
+      if (body.classList.contains(darkModeClass)) {
+        localStorage.setItem('darkMode', 'enabled');
+        toggleMode.innerHTML = '<i class="bi bi-sun"></i>';
+      } else {
+        localStorage.setItem('darkMode', 'disabled');
+        toggleMode.innerHTML = '<i class="bi bi-moon"></i>';
+      }
+    });
+    
+    // Initialize price slider
+    const priceSlider = document.getElementById('priceSlider');
+    const minPrice = document.getElementById('minPrice');
+    const maxPrice = document.getElementById('maxPrice');
+    
+    noUiSlider.create(priceSlider, {
+      start: [10, 500],
+      connect: true,
+      range: {
+        'min': 5,
+        'max': 1000
+      },
+      step: 5,
+      tooltips: [true, true],
+      format: {
+        to: function(value) {
+          return '$' + Math.round(value);
+        },
+        from: function(value) {
+          return Number(value.replace('$', ''));
+        }
+      }
+    });
+    
+    priceSlider.noUiSlider.on('update', function(values, handle) {
+      if (handle === 0) {
+        minPrice.textContent = values[0];
+      } else {
+        maxPrice.textContent = values[1];
+      }
+    });
+    
+    // Order Modal Functionality
+    const orderButtons = document.querySelectorAll('.order-btn');
+    const orderModal = new bootstrap.Modal(document.getElementById('orderModal'));
+    const modalProductTitle = document.getElementById('modalProductTitle');
+    const modalProductSeller = document.getElementById('modalProductSeller');
+    const modalProductPrice = document.getElementById('modalProductPrice');
+    const modalProductImg = document.getElementById('modalProductImg');
+    const basicPrice = document.getElementById('basicPrice');
+    const standardPrice = document.getElementById('standardPrice');
+    const premiumPrice = document.getElementById('premiumPrice');
+    
+    orderButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const title = button.getAttribute('data-title');
+        const seller = button.getAttribute('data-seller');
+        const price = button.getAttribute('data-price');
+        const img = button.getAttribute('data-img');
+        
+        modalProductTitle.textContent = title;
+        modalProductSeller.textContent = seller;
+        modalProductPrice.textContent = '$' + price;
+        modalProductImg.src = img;
+        modalProductImg.alt = title;
+        
+        // Set package prices
+        basicPrice.textContent = price;
+        standardPrice.textContent = (parseInt(price) + 30).toString();
+        premiumPrice.textContent = (parseInt(price) + 60).toString();
+        
+        orderModal.show();
+      });
+    });
+    
+    // Back to Top Button
+    const backToTopButton = document.querySelector('.back-to-top');
+    
+    window.addEventListener('scroll', () => {
+      if (window.pageYOffset > 300) {
+        backToTopButton.classList.add('show');
+      } else {
+        backToTopButton.classList.remove('show');
+      }
+    });
+    
+    backToTopButton.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+    
+    // Scroll Progress Bar
+    const scrollProgress = document.querySelector('.scroll-progress');
+    
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const progress = (scrollTop / (documentHeight - windowHeight)) * 100;
+      
+      scrollProgress.style.width = progress + '%';
+    });
+    
+    // Mobile filter toggle
+    const mobileFilterToggle = document.getElementById('mobileFilterToggle');
+    const filterColumn = document.getElementById('filterColumn');
+    const closeFilters = document.getElementById('closeFilters');
+    const filterOverlay = document.createElement('div');
+    filterOverlay.className = 'filter-overlay';
+    document.body.appendChild(filterOverlay);
+    
+    mobileFilterToggle.addEventListener('click', () => {
+      filterColumn.classList.add('show');
+      filterOverlay.classList.add('show');
+    });
+    
+    closeFilters.addEventListener('click', () => {
+      filterColumn.classList.remove('show');
+      filterOverlay.classList.remove('show');
+    });
+    
+    filterOverlay.addEventListener('click', () => {
+      filterColumn.classList.remove('show');
+      filterOverlay.classList.remove('show');
+    });
+    
+    // Sorting buttons
+    const sortButtons = document.querySelectorAll('.sorting-options .btn');
+    sortButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        sortButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

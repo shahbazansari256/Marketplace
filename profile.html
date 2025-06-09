@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>John Doe | Profile - Marketplace</title>
+  <meta name="description" content="View and manage the advanced seller profile of John Doe on Marketplace. See products, reviews, skills, and contact info.">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet" />
+  <style>
+    body {
+      background: #f5f6fa;
+      color: #222;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      transition: background 0.3s, color 0.3s;
+    }
+    .dark-mode {
+      background: #181818 !important;
+      color: #f1f1f1 !important;
+    }
+    .dark-mode .card, .dark-mode .tab-content, .dark-mode .form-control, .dark-mode .list-group-item {
+      background: #23272b !important;
+      color: #fff !important;
+      border-color: #343a40 !important;
+    }
+    .dark-mode .nav-tabs .nav-link.active {
+      background: #181818 !important;
+      color: #fff !important;
+      border-color: #4361ee #4361ee #181818;
+    }
+    .profile-cover {
+      background: linear-gradient(120deg, #4361ee 0%, #4895ef 100%);
+      height: 220px;
+      position: relative;
+      border-radius: 0 0 32px 32px;
+      overflow: hidden;
+    }
+    .profile-avatar {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      object-fit: cover;
+      position: absolute;
+      left: 40px;
+      bottom: -65px;
+      box-shadow: 0 4px 32px rgba(67,97,238,0.13);
+      background: #fff;
+    }
+    .profile-main {
+      margin-top: 80px;
+      padding: 0 40px 32px 40px;
+      max-width: 950px;
+      margin-left: auto;
+      margin-right: auto;
+      background: #fff;
+      border-radius: 18px;
+      box-shadow: 0 4px 24px rgba(67,97,238,0.07);
+      position: relative;
+      z-index: 2;
+    }
+    .profile-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-end;
+      gap: 32px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid #e9ecef;
+    }
+    .profile-title {
+      margin-left: 160px;
+      flex: 1;
+    }
+    .profile-name {
+      font-size: 2em;
+      font-weight: 700;
+      color: #4361ee;
+      margin-bottom: 2px;
+    }
+    .profile-username {
+      color: #888;
+      font-size: 1em;
+      margin-bottom: 8px;
+    }
+    .profile-bio {
+      font-size: 1.1em;
+      color: #333;
+      margin-bottom: 8px;
+      max-width: 520px;
+    }
+    .profile-actions {
+      display: flex;
+      gap: 10px;
+      margin-left: auto;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+    .profile-actions .btn {
+      font-weight: 600;
+      font-size: 1em;
+      border-radius: 7px;
+      padding: 8px 20px;
+    }
+    .profile-socials {
+      display: flex;
+      gap: 14px;
+      margin-bottom: 8px;
+    }
+    .profile-socials a {
+      color: #4361ee;
+      font-size: 1.2em;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .profile-socials a:hover {
+      color: #4895ef;
+    }
+    .profile-stats {
+      display: flex;
+      gap: 40px;
+      margin: 24px 0 0 160px;
+      font-size: 1.08em;
+      flex-wrap: wrap;
+    }
+    .profile-stats .stat {
+      color: #222;
+      font-weight: 600;
+      text-align: center;
+    }
+    .profile-stats .stat-label {
+      color: #888;
+      font-size: 0.97em;
+      font-weight: 400;
+      display: block;
+    }
+    .nav-tabs .nav-link {
+      color: #4361ee;
+      font-weight: 600;
+      font-size: 1.08em;
+      border: none;
+      margin-right: 16px;
+      border-radius: 0;
+      background: none;
+      transition: color 0.2s, border-bottom 0.2s;
+    }
+    .nav-tabs .nav-link.active {
+      border-bottom: 3px solid #4361ee;
+      color: #222;
+      background: none;
+    }
+    .profile-section-content {
+      padding: 32px 0 12px 0;
+      min-height: 180px;
+    }
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 8px;
+    }
+    .skill-tag {
+      background: #e9ecef;
+      color: #4361ee;
+      padding: 6px 16px;
+      border-radius: 14px;
+      font-size: 1em;
+      font-weight: 500;
+      margin-bottom: 4px;
+      display: inline-block;
+    }
+    .skill-remove {
+      margin-left: 8px;
+      color: #f72585;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.12em;
+    }
+    .add-skill-bar {
+      display: flex;
+      gap: 8px;
+      margin-top: 10px;
+      max-width: 320px;
+    }
+    .add-skill-bar input {
+      flex: 1;
+      padding: 6px 10px;
+      border-radius: 6px;
+      border: 1px solid #dfe6e9;
+      font-size: 1em;
+      background: #f9fafb;
+    }
+    .add-skill-bar button {
+      background: #4361ee;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 6px 18px;
+      font-size: 1em;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .add-skill-bar button:hover {
+      background: #3f37c9;
+    }
+    .profile-feedback {
+      position: fixed;
+      top: 32px;
+      right: 32px;
+      background: #00b894;
+      color: #fff;
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-size: 1.08em;
+      box-shadow: 0 2px 12px rgba(0,184,148,0.14);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      z-index: 20;
+    }
+    .profile-feedback.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    @media (max-width: 900px) {
+      .profile-main { padding: 0 8px 24px 8px; }
+      .profile-header { gap: 16px; }
+      .profile-title, .profile-stats { margin-left: 0; }
+      .profile-avatar { left: 50%; transform: translateX(-50%); }
+    }
+    @media (max-width: 600px) {
+      .profile-cover { height: 120px; }
+      .profile-avatar { width: 90px; height: 90px; bottom: -45px; }
+      .profile-main { margin-top: 50px; }
+      .profile-header { flex-direction: column; gap: 8px; }
+      .profile-title { margin-left: 0; }
+      .profile-stats { gap: 18px; margin-left: 0; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm sticky-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="index.html"><i class="bi bi-shop-window"></i> MarketPlace</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="all-products.html" class="nav-link">Products</a></li>
+          <li class="nav-item"><a href="dashboard.html" class="nav-link">Dashboard</a></li>
+          <li class="nav-item"><a href="profile.html" class="nav-link active" aria-current="page">Profile</a></li>
+          <li class="nav-item"><a href="login.html" class="nav-link">Login</a></li>
+          <li class="nav-item">
+            <button class="btn btn-outline-dark ms-2" id="toggleMode" aria-label="Toggle light/dark mode">
+              <i class="bi bi-moon"></i>
+            </button>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Profile Cover and Avatar -->
+  <div class="profile-cover" aria-label="Profile Cover Image">
+    <img id="profileAvatar" class="profile-avatar" src="https://randomuser.me/api/portraits/men/32.jpg" alt="Profile Photo" />
+    <input type="file" id="avatarInput" accept="image/*" style="display:none;" aria-label="Upload Profile Photo">
+    <button class="btn btn-light position-absolute" style="left:170px; bottom:10px; z-index:2;" id="avatarUploadBtn" title="Change Photo" aria-label="Change Profile Photo">
+      <i class="bi bi-camera"></i>
+    </button>
+  </div>
+
+  <!-- Main Profile Card -->
+  <main class="profile-main shadow" aria-label="User Profile Main Section">
+    <section class="profile-header">
+      <div class="profile-title">
+        <h1 class="profile-name" id="profileName">John Doe</h1>
+        <div class="profile-username" id="profileUsername">@johndoe</div>
+        <div class="profile-bio" id="profileBio">
+          Experienced web developer with 5+ years in freelance projects.
+        </div>
+        <div class="profile-socials" id="profileSocials">
+          <a href="mailto:john@example.com" title="Email" aria-label="Email"><i class="bi bi-envelope"></i></a>
+          <a href="https://linkedin.com/" target="_blank" title="LinkedIn" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+          <a href="https://github.com/" target="_blank" title="GitHub" aria-label="GitHub"><i class="bi bi-github"></i></a>
+        </div>
+      </div>
+      <div class="profile-actions" id="profileActions">
+        <button class="btn btn-outline-primary" onclick="toggleEdit(true)"><i class="bi bi-pencil me-1"></i>Edit</button>
+        <button class="btn btn-primary"><i class="bi bi-person-plus me-1"></i>Follow</button>
+        <button class="btn btn-outline-secondary"><i class="bi bi-chat-dots me-1"></i>Message</button>
+      </div>
+    </section>
+    <section class="profile-stats" aria-label="User Stats">
+      <div class="stat"><span id="statProducts">42</span><span class="stat-label">Products</span></div>
+      <div class="stat"><span id="statFollowers">1,250</span><span class="stat-label">Followers</span></div>
+      <div class="stat"><span id="statReviews">89</span><span class="stat-label">Reviews</span></div>
+    </section>
+
+    <!-- Tabs -->
+    <ul class="nav nav-tabs profile-tabs mt-4" id="profileTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <button class="nav-link active" id="about-tab" data-bs-toggle="tab" data-bs-target="#about" type="button" role="tab">About</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="listings-tab" data-bs-toggle="tab" data-bs-target="#listings" type="button" role="tab">Listings</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab">Reviews</button>
+      </li>
+      <li class="nav-item" role="presentation">
+        <button class="nav-link" id="settings-tab" data-bs-toggle="tab" data-bs-target="#settings" type="button" role="tab">Settings</button>
+      </li>
+    </ul>
+    <div class="tab-content profile-section-content" id="profileTabContent">
+      <!-- About Tab -->
+      <div class="tab-pane fade show active" id="about" role="tabpanel">
+        <div>
+          <h6 class="fw-bold mb-2">Skills & Interests</h6>
+          <div class="skills-list" id="skillsList">
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">React</span>
+            <span class="skill-tag">UI/UX</span>
+            <span class="skill-tag">Marketplace Apps</span>
+          </div>
+        </div>
+        <div class="mt-4">
+          <h6 class="fw-bold mb-2">Contact</h6>
+          <div id="contactDetails">
+            <div><i class="bi bi-envelope me-2"></i>john@example.com</div>
+            <div><i class="bi bi-telephone me-2"></i>+1 555 123 4567</div>
+            <div><i class="bi bi-geo-alt me-2"></i>United States</div>
+          </div>
+        </div>
+      </div>
+      <!-- Listings Tab -->
+      <div class="tab-pane fade" id="listings" role="tabpanel">
+        <div>
+          <h6 class="fw-bold mb-2">Active Listings</h6>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <div class="card p-3">
+                <div class="fw-bold mb-1">Wireless Headphones</div>
+                <div class="mb-1 text-muted">Electronics</div>
+                <div class="mb-2">High-quality wireless headphones with noise cancellation.</div>
+                <a href="#" class="btn btn-outline-primary btn-sm">View</a>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card p-3">
+                <div class="fw-bold mb-1">Smart Watch</div>
+                <div class="mb-1 text-muted">Wearables</div>
+                <div class="mb-2">Feature-rich smartwatch with health tracking.</div>
+                <a href="#" class="btn btn-outline-primary btn-sm">View</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Reviews Tab -->
+      <div class="tab-pane fade" id="reviews" role="tabpanel">
+        <div>
+          <h6 class="fw-bold mb-2">Recent Reviews</h6>
+          <ul class="list-group">
+            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>“Great seller, fast shipping!” <span class="text-muted small">by Priya · 2d ago</span></li>
+            <li class="list-group-item"><i class="bi bi-star-fill text-warning me-2"></i>“Product as described, excellent support.” <span class="text-muted small">by Amit · 5d ago</span></li>
+          </ul>
+        </div>
+      </div>
+      <!-- Settings Tab -->
+      <div class="tab-pane fade" id="settings" role="tabpanel">
+        <div>
+          <h6 class="fw-bold mb-2">Edit Profile Details</h6>
+          <form id="profileForm" novalidate>
+            <div class="mb-3">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" id="fullName" class="form-control" value="John Doe" required />
+              <div class="invalid-feedback">Please enter your full name.</div>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" id="email" class="form-control" value="john@example.com" required />
+              <div class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+            <div class="mb-3">
+              <label for="bio" class="form-label">Bio</label>
+              <textarea id="bio" class="form-control" rows="3" required>Experienced web developer with 5+ years in freelance projects.</textarea>
+              <div class="invalid-feedback">Please enter your bio.</div>
+            </div>
+            <button type="submit" class="btn btn-success">Save Changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <!-- Feedback -->
+  <div class="profile-feedback" id="profileFeedback" role="status" aria-live="polite"></div>
+  <!-- Footer -->
+  <footer class="sticky-footer mt-5">
+    <div class="container text-center small">
+      &copy; 2025 MarketPlace. All rights reserved.
+    </div>
+  </footer>
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Dark mode toggle
+    document.getElementById('toggleMode').onclick = function() {
+      document.body.classList.toggle('dark-mode');
+    };
+
+    // Avatar upload
+    document.getElementById('avatarUploadBtn').onclick = function() {
+      document.getElementById('avatarInput').click();
+    };
+    document.getElementById('avatarInput').onchange = function(e) {
+      const file = e.target.files[0];
+      if (!file) return;
+      if (!file.type.startsWith('image/')) return showFeedback("Please select an image!", "#f72585");
+      const reader = new FileReader();
+      reader.onload = function(evt) {
+        document.getElementById('profileAvatar').src = evt.target.result;
+      };
+      reader.readAsDataURL(file);
+    };
+
+    // Feedback
+    function showFeedback(msg, color="#00b894") {
+      const fb = document.getElementById('profileFeedback');
+      fb.innerText = msg;
+      fb.style.background = color;
+      fb.classList.add('show');
+      setTimeout(() => fb.classList.remove('show'), 2000);
+    }
+
+    // Profile form validation
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+      const name = document.getElementById('fullName');
+      const email = document.getElementById('email');
+      const bio = document.getElementById('bio');
+      if (!name.value.trim()) { name.classList.add('is-invalid'); valid = false; }
+      else { name.classList.remove('is-invalid'); }
+      if 
